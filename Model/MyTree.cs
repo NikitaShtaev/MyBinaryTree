@@ -158,10 +158,38 @@ namespace MyBinaryTree.Model
             return result;
         }
         /// <summary>
-        /// Private method to get the tree as string.
+        /// Going within elements by breadthordering.
         /// </summary>
         /// <returns></returns>
-        private string GetTreeString()
+        public List<T> BreadthOrder()
+        {
+            if (Root == null)
+            {
+                return new List<T>();
+            }
+            var lst = new List<T>();
+            var q = new Queue<Node<T>>();
+            q.Enqueue(Root);
+            while (!(q.Count == 0))
+            {
+                var current = q.Dequeue();
+                lst.Add(current.Data);
+                if (current.Left != null)
+                {
+                    q.Enqueue(current.Left);
+                }
+                if (current.Right != null)
+                {
+                    q.Enqueue(current.Right);
+                }
+            }
+            return lst;
+        }
+        /// <summary>
+        /// Method to get the tree as string as Preorder.
+        /// </summary>
+        /// <returns></returns>
+        public string GetTreeString()
         {
             string result = "";
             if (Root == null)
@@ -172,7 +200,7 @@ namespace MyBinaryTree.Model
             return result;
         }
         /// <summary>
-        /// Helper to get the tree as string.
+        /// Helper to get the tree as string as Preorder.
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -204,7 +232,7 @@ namespace MyBinaryTree.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return GetTreeString();
+            return GetTreeString2();
         }
         /// <summary>
         /// Writing the tree to console.
@@ -264,6 +292,35 @@ namespace MyBinaryTree.Model
             {
                 Console.WriteLine("No nodes");
             }
+        }
+        /// <summary>
+        /// Method to get the tree as string as BreadthOrder.
+        /// </summary>
+        /// <returns></returns>
+        public string GetTreeString2()
+        {
+            if (Root == null)
+            {
+                return "Empty Tree";
+            }
+            string result = "";
+            var q = new Queue<Node<T>>();
+            q.Enqueue(Root);
+            while (!(q.Count ==0))
+            {
+                var current = q.Dequeue();
+                result += GetNodeString(current);
+                if (current.Left != null)
+                {
+                    q.Enqueue(current.Left);
+                }
+                if (current.Right != null)
+                {
+                    q.Enqueue(current.Right);
+                    
+                }
+            }
+            return result;
         }
     }
 }
